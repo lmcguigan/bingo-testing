@@ -1,6 +1,6 @@
 import { buildArrayOfRandomNumbers } from "./number-picker-utils";
 
-export const createObject = value => {
+export const createCellObject = value => {
     const obj = {
       value: value,
       marked: false,
@@ -8,9 +8,9 @@ export const createObject = value => {
     return obj;
   };
   
-  export const createArrayOfObjects = array => array.map(e => createObject(e));
+  export const createArrayOfCells = array => array.map(e => createCellObject(e));
 
   export const createBingoCard = (n) => {
       const numbers = buildArrayOfRandomNumbers(n)
-      return createArrayOfObjects(numbers)
+      return createArrayOfCells(numbers)
   }

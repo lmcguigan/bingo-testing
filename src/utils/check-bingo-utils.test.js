@@ -1,6 +1,6 @@
 import { BingoValidator } from "./check-bingo-utils"
 
-//vertical === |
+//vertical === | 
 //horizontal === ----
 describe('Testing methods that build line indexes for comparison', () => {
     const validator = new BingoValidator(5)
@@ -43,20 +43,31 @@ describe('Testing methods that build line indexes for comparison', () => {
 
 describe('Testing the constructor', () => {
     const bingoCardValidator = new BingoValidator(5)
-    it('should build an object with the correct diagonal line matches', () => {
+    it('should have all the correct properties', () => {
+        expect(bingoCardValidator).toHaveProperty('diagonalLines')
+    })
+    it('should throw an error if we try to use a number for n that is even', () => {
+        function get4by4CardValidator () {
+            return new BingoValidator(4)
+        }
+        expect(get4by4CardValidator).toThrow()
+    })
+    it('should contain the correct diagonal line matches in the diagonal lines property array', () => {
         const diagonals = bingoCardValidator.diagonalLines
         expect(diagonals).toHaveLength(2)
         expect(diagonals).toContainEqual([0, 6, 12, 18, 24])
         expect(diagonals).toContainEqual([4, 8, 12, 16, 20])
     })
-    it('should build an object with the correct vertical line matches', () => {
+    it('should contain the correct vertical line matches in the vertical lines property array', () => {
         const verticals = bingoCardValidator.verticalLines
         expect(verticals).toHaveLength(5)
         expect(verticals).toContainEqual([4, 9, 14, 19, 24])
 
     })
-    it('should build an object with the correct horizontal line matches', () => {
-        
+    it('should contain the correct horizontal line matches in the horizontal lines property array', () => {
+        const horizontals = bingoCardValidator.horizontalLines
+        expect(horizontals).toHaveLength(5)
+        expect(horizontals).toContainEqual([20, 21, 22, 23, 24])
     })
 })
 describe('Testing the validations', () => {
@@ -71,7 +82,7 @@ describe('Testing the validations', () => {
         expect(validator.hasLineMatchForOrientation([1, 3, 7, 13, 18, 19, 23], validator.verticalLines)).toBeFalsy()
         expect(validator.hasLineMatchForOrientation([1, 3, 7, 8, 13, 18, 19, 23], validator.verticalLines)).toBeTruthy()
     })
-    it('should', () => {
+    it('should correctly identify when the card has a horizontal line', () => {
         expect(validator.hasLineMatchForOrientation([1, 7, 9, 16, 17, 18, 19, 22], validator.horizontalLines)).toBeFalsy()
         expect(validator.hasLineMatchForOrientation([1, 7, 9, 15, 16, 17, 18, 19, 22], validator.horizontalLines)).toBeTruthy()
     })
@@ -82,8 +93,5 @@ describe('Testing the validations', () => {
         expect(lineMatchSpy).toHaveBeenCalledTimes(1)
         const marked = validator.getMarkedItemIndexes(card)
         expect(lineMatchSpy).toHaveBeenCalledWith(marked, validator.diagonalLines)
-    })
-    it('should stop checking after finding a vertical match, if there are no ', () => {
-        
     })
 })
