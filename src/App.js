@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.css';
 import BingoCard from './components/BingoCard/BingoCard';
 import BingoHeader from './components/BingoHeader/BingoHeader';
 import { createBingoCard } from './utils/card-builder-utils';

@@ -14,14 +14,21 @@ describe('Testing building the Bingo card', () => {
         })
     })
     describe("Testing the method that builds a card", () => {
-        it('should create a bingo card with random values', () => {
-            const numberPickerSpy = jest.spyOn(NumberPickeerModule, "buildArrayOfRandomNumbers")
+        it('should create a bingo card where any element in the array has a value between 1 and 75 and has a marked property of false', () => {
             const card = createBingoCard(5)
-            expect(numberPickerSpy).toHaveBeenCalledWith(5)
             expect(card).toHaveLength(25)
             const firstCellInCard = card[0]
             expect(firstCellInCard).toHaveProperty('value')
             expect(firstCellInCard).toHaveProperty('marked')
+            expect(firstCellInCard.value).toBeGreaterThan(0)
+            expect(firstCellInCard.value).toBeLessThan(75)
+            expect(firstCellInCard.marked).toBeFalsy()
+            expect(card.every(cell => cell.value <= 75)).toBeTruthy()
+        })
+        it('should call the method that builds an array of random numbers with the value we pass in for n', () => {
+            const numberPickerSpy = jest.spyOn(NumberPickeerModule, "buildArrayOfRandomNumbers")
+            createBingoCard(5)
+            expect(numberPickerSpy).toHaveBeenCalledWith(5)
         })
     })
 })
