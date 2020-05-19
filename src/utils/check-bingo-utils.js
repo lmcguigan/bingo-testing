@@ -47,6 +47,7 @@ export class BingoValidator {
         return array.filter((cell) => cell.marked === true)
     }
     getMarkedItemIndexes(card){
+        // we don't need the value, just the index and whether it is marked, to determine if they have a line
         const getIndexes = card.map((cell, index) => {return({index: index, marked: cell.marked})})
         return this.filterByMarked(getIndexes).map((object) => object.index)
     }
@@ -56,6 +57,7 @@ export class BingoValidator {
     hasLineMatchForOrientation(markedItems, orientationLines){
         let hasMatch = false
         let indexOfLineToCheck = 0
+        // only check until a match is found
         while(hasMatch === false && indexOfLineToCheck < orientationLines.length){
             if (this.hasLine(markedItems, orientationLines[indexOfLineToCheck])){
                 hasMatch = true
@@ -67,6 +69,7 @@ export class BingoValidator {
     }
     hasBingo(card){
     const totalMarked = this.filterByMarked(card)
+    // can't have bingo with less than 5 marked items
     if(totalMarked.length < 5){
         return false
     } else {
