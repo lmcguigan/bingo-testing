@@ -14,7 +14,7 @@ function App() {
   const onPressItem = (index) => {
     const updatedCard = getUpdatedCard(index, values)
     setValues(updatedCard)
-    console.log('Updated card array:', (updatedCard))
+    console.log('Updated card array:', (updatedCard), JSON.stringify(updatedCard))
     console.log('Indexes of marked cells:', validator.getMarkedItemIndexes(updatedCard))
     if(validator.hasBingo(updatedCard)){
       setHasBingo(true)
@@ -41,6 +41,7 @@ function App() {
     height: 'auto',
     backgroundColor: 'white',
     borderRadius: 5,
+    padding: 10, 
   }
   return (
     <div className="App" style={appContainerStyle}>

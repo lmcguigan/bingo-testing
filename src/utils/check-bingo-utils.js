@@ -33,6 +33,7 @@ export class BingoValidator {
         return lines
     }
     getHorizontalLine(n, i){
+        // creates an array of length n starting at i
         return [...Array(n).keys()].map(val => val + i);
     }
     getHorizontalLines(n){
